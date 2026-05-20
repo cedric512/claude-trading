@@ -1,5 +1,8 @@
 # Claude Trading
 
+![Licence MIT](https://img.shields.io/badge/licence-MIT-blue.svg)
+![Statut](https://img.shields.io/badge/statut-en%20développement-yellow.svg)
+
 Projet d'automatisation et d'analyse de trading assisté par Claude (Anthropic).
 
 ## Description
