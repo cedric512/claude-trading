@@ -138,7 +138,7 @@ def execute_orders(
                     sector=TICKER_SECTOR.get(ticker, "Unknown"),
                     entry_date=date.today().isoformat(),
                     stop_loss=round(price * (1 - STOP_LOSS_PCT), 2),
-                    target_weight=orders[ticker].get("target_weight", MAX_POSITION_PCT),
+                    target_weight=row["target_weight"],
                 )
             log_trade(portfolio, "buy", ticker, qty, price, reason)
 

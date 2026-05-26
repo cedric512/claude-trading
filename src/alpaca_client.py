@@ -72,7 +72,7 @@ def get_latest_prices(tickers: list[str]) -> dict[str, float]:
     client = get_data_client()
     req = StockLatestQuoteRequest(symbol_or_symbols=tickers)
     quotes = client.get_stock_latest_quote(req)
-    return {sym: float(q.ask_price or q.bid_price) for sym, q in quotes.items()}
+    return {sym: float(q.ask_price or q.bid_price or 0) for sym, q in quotes.items()}
 
 
 def place_market_order(

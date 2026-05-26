@@ -107,7 +107,7 @@ def score_universe(
     s_rsi = rsi.apply(lambda r: max(0, 1 - max(0, r - RSI_OVERBOUGHT) / (100 - RSI_OVERBOUGHT)))
 
     # Volume trend: use 3M vs 6M return spread as proxy for acceleration
-    accel = df["3m"].fillna(0) - df["6m"].fillna(0) / 2
+    accel = (df["3m"].fillna(0) - df["6m"].fillna(0)) / 2
     s_vol = _minmax(accel)
 
     # --- Weighted composite score ---
