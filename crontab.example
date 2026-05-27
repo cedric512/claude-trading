@@ -1,0 +1,25 @@
+# Claude Trading — configuration cron (alternative à scheduler.py)
+#
+# Installation :
+#   crontab -e
+#   Coller les lignes ci-dessous en adaptant le chemin /path/to/claude-trading
+#
+# Les heures sont en CET (Europe/Paris). Si ton serveur est en UTC,
+# enlève CRON_TZ et ajuste les heures manuellement (-1h en hiver, -2h en été).
+
+CRON_TZ=Europe/Paris
+TRADING_DIR=/path/to/claude-trading
+PYTHON=/path/to/venv/bin/python  # ou simplement: python3
+
+# screen_universe — dimanche 20:00 CET
+0 20 * * 0 cd $TRADING_DIR && $PYTHON scripts/screen_universe.py >> logs/screen.log 2>&1
+
+# weekly_report — lundi 08:00 CET
+0 8  * * 1 cd $TRADING_DIR && $PYTHON scripts/weekly_report.py  >> logs/weekly.log 2>&1
+
+# daily_analysis — lundi au vendredi 22:00 CET (après clôture US)
+0 22 * * 1-5 cd $TRADING_DIR && $PYTHON scripts/daily_analysis.py >> logs/daily.log 2>&1
+
+# rebalance — tous les 1ers du mois à 09:00 CET (la logique "1er jour ouvré"
+# est gérée dans scheduler.py ; avec cron on cible le 1er du mois)
+0 9  1 * * cd $TRADING_DIR && $PYTHON scripts/rebalance.py >> logs/rebalance.log 2>&1
